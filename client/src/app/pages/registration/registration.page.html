@@ -1,0 +1,58 @@
+<ion-content [fullscreen]="true">
+  <div class="centered-content">
+    <ion-card class="flex-col-center">
+      <ion-card-header>
+        <ion-card-title>Registration</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form class="flex-col-center" [formGroup]="registrationFrom" (ngSubmit)="register()">
+          <ion-input
+            label="Username"
+            labelPlacement="floating"
+            fill="outline"
+            errorText="Please enter a valid username"
+            formControlName="username"
+          ></ion-input>
+
+          <ion-input
+            label="Email"
+            labelPlacement="floating"
+            fill="outline"
+            type="email"
+            errorText="Please enter a valid email"
+            formControlName="email"
+          ></ion-input>
+
+          <ion-input
+            label="Password"
+            labelPlacement="floating"
+            fill="outline"
+            type="password"
+            errorText="Password must be at least 8 characters long"
+            formControlName="password"
+          ></ion-input>
+
+          <ion-input
+            label="Confirm Password"
+            labelPlacement="floating"
+            fill="outline"
+            type="password"
+            errorText="Password must be at least 8 characters long"
+            formControlName="confirmPassword"
+          ></ion-input>
+
+          @if (registrationFrom.hasError('passwordMismatch') && (confirmPasswordControl?.touched || confirmPasswordControl?.dirty)) {
+          <ion-note color="danger">
+            <span>Passwords do not match</span>
+          </ion-note>
+          }
+
+          <ion-button shape="round" type="submit" [disabled]="!this.isFormValid">Register</ion-button>
+        </form>
+      </ion-card-content>
+
+      <ion-button color="secondary" size="small" fill="clear" routerLink="/login">Back to Login</ion-button>
+    </ion-card>
+  </div>
+</ion-content>
