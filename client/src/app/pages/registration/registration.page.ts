@@ -19,6 +19,8 @@ import {
 } from '@ionic/angular/standalone';
 import { Router, RouterLink } from '@angular/router';
 import { passwordMatchValidator } from 'src/app/shared/validators/password-match.validator';
+import { AuthService } from 'src/app/shared/auth.service';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-registration',
@@ -50,7 +52,10 @@ export class RegistrationPage {
     passwordMatchValidator('password', 'confirmPassword')
   );
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   get confirmPasswordControl(): AbstractControl<string | null, string | null> | null {
     return this.registrationFrom.get('confirmPassword');
@@ -77,9 +82,16 @@ export class RegistrationPage {
   }
 
   register(): void {
-    console.log('username', this.username);
-    console.log('email', this.email);
-    console.log('password', this.password);
-    console.log('confirmPassword', this.confirmPassword);
+    const user: User = {
+      username: this.username,
+      email: this.email,
+      password: this.password,
+    };
+
+    this.authService.register(user).subscribe(() => {
+      console.log('Registration was successful!');
+
+      //this.router.navigateByUrl('/cars');
+    });
   }
 }
