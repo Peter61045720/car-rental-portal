@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, OnInit, signal } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import {
   IonSplitPane,
   IonMenu,
@@ -13,24 +13,21 @@ import {
   IonLabel,
   IonRouterOutlet,
   IonRouterLink,
+  ToastOptions,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
-  mailOutline,
-  mailSharp,
-  paperPlaneOutline,
-  paperPlaneSharp,
-  heartOutline,
-  heartSharp,
-  archiveOutline,
-  archiveSharp,
-  trashOutline,
-  trashSharp,
-  warningOutline,
-  warningSharp,
-  bookmarkOutline,
-  bookmarkSharp,
+  carOutline,
+  carSharp,
+  settingsOutline,
+  settingsSharp,
+  logOutOutline,
+  logOutSharp,
 } from 'ionicons/icons';
+import { NavItem } from 'src/app/shared/models/nav-item';
+import { User } from 'src/app/shared/models/user';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-admin-layout',
@@ -54,32 +51,65 @@ import {
     IonRouterOutlet,
   ],
 })
-export class AdminLayoutComponent {
-  public appPages = [
-    { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/spam', icon: 'warning' },
-  ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  constructor() {
+export class AdminLayoutComponent implements OnInit {
+  appPages: NavItem[];
+  readonly user = signal<User | null>(null);
+
+  loadingToastOptions: ToastOptions = {
+    message: 'Logging out...',
+    position: 'top',
+    icon: 'hourglass-outline',
+  };
+
+  successToastOptions: ToastOptions = {
+    message: 'Logged out successfully!',
+    duration: 2000,
+    icon: 'checkmark-circle-outline',
+    position: 'top',
+    color: 'success',
+  };
+
+  constructor(
+    private router: Router,
+    private toastService: ToastService,
+    private authService: AuthService
+  ) {
     addIcons({
-      mailOutline,
-      mailSharp,
-      paperPlaneOutline,
-      paperPlaneSharp,
-      heartOutline,
-      heartSharp,
-      archiveOutline,
-      archiveSharp,
-      trashOutline,
-      trashSharp,
-      warningOutline,
-      warningSharp,
-      bookmarkOutline,
-      bookmarkSharp,
+      carOutline,
+      carSharp,
+      settingsOutline,
+      settingsSharp,
+      logOutOutline,
+      logOutSharp,
     });
+
+    this.appPages = [
+      {
+        icon: 'car',
+        title: 'Browse Cars',
+        url: '/admin/cars',
+      },
+    ];
+  }
+
+  ngOnInit(): void {
+    this.authService.checkAuth().subscribe(data => {
+      if (data.user) {
+        this.user.set(data.user);
+      }
+    });
+  }
+
+  viewProfile(): void {
+    this.router.navigateByUrl('/user/profile');
+  }
+
+  logout(): void {
+    this.toastService.presentClosableToast(this.loadingToastOptions);
+    this.authService.logout().subscribe(() => {
+      this.toastService.close();
+      this.toastService.presentToast(this.successToastOptions);
+    });
+    this.router.navigateByUrl('/login');
   }
 }

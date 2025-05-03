@@ -34,12 +34,9 @@ export class AuthService {
     );
   }
 
-  checkAuth(): Observable<{ loggedIn: boolean; user?: Partial<User> }> {
-    return this.httpClient.get<{ loggedIn: boolean; user?: Partial<User> }>(
-      `${this.url}/check-auth`,
-      {
-        withCredentials: true,
-      }
-    );
+  checkAuth(): Observable<{ loggedIn: boolean; user?: User }> {
+    return this.httpClient.get<{ loggedIn: boolean; user?: User }>(`${this.url}/check-auth`, {
+      withCredentials: true,
+    });
   }
 }

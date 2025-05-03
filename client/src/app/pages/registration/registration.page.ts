@@ -16,11 +16,15 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonNote,
+  ToastOptions,
 } from '@ionic/angular/standalone';
 import { Router, RouterLink } from '@angular/router';
 import { passwordMatchValidator } from 'src/app/shared/validators/password-match.validator';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { User } from 'src/app/shared/models/user';
+import { addIcons } from 'ionicons';
+import { alertCircleOutline, checkmarkCircleOutline, hourglassOutline } from 'ionicons/icons';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-registration',
@@ -42,6 +46,28 @@ import { User } from 'src/app/shared/models/user';
   ],
 })
 export class RegistrationPage {
+  loadingToastOptions: ToastOptions = {
+    message: 'Registering...',
+    position: 'top',
+    icon: 'hourglass-outline',
+  };
+
+  successToastOptions: ToastOptions = {
+    message: 'Registration successful!',
+    duration: 2000,
+    icon: 'checkmark-circle-outline',
+    position: 'top',
+    color: 'success',
+  };
+
+  errorToastOptions: ToastOptions = {
+    message: 'Registration Failed!',
+    duration: 2000,
+    icon: 'alert-circle-outline',
+    position: 'top',
+    color: 'danger',
+  };
+
   registrationFrom = new FormGroup(
     {
       username: new FormControl('', Validators.required),
@@ -54,8 +80,11 @@ export class RegistrationPage {
 
   constructor(
     private router: Router,
+    private toastService: ToastService,
     private authService: AuthService
-  ) {}
+  ) {
+    addIcons({ hourglassOutline, checkmarkCircleOutline, alertCircleOutline });
+  }
 
   get confirmPasswordControl(): AbstractControl<string | null, string | null> | null {
     return this.registrationFrom.get('confirmPassword');
@@ -82,16 +111,24 @@ export class RegistrationPage {
   }
 
   register(): void {
+    this.toastService.presentClosableToast(this.loadingToastOptions);
+
     const user: User = {
       username: this.username,
       email: this.email,
       password: this.password,
     };
 
-    this.authService.register(user).subscribe(() => {
-      console.log('Registration was successful!');
-
-      //this.router.navigateByUrl('/cars');
+    this.authService.register(user).subscribe({
+      next: () => {
+        this.toastService.close();
+        this.toastService.presentToast(this.successToastOptions);
+        this.router.navigateByUrl('/user/cars');
+      },
+      error: () => {
+        this.toastService.close();
+        this.toastService.presentToast(this.errorToastOptions);
+      },
     });
   }
 }

@@ -36,6 +36,12 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
 
+@media (min-width: 992px) {
+  ion-menu {
+    width: 200px;
+  }
+}
+
 .centered-content {
   display: flex;
   align-items: center;
