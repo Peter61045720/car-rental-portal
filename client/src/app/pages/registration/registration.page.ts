@@ -19,7 +19,7 @@ import {
 } from '@ionic/angular/standalone';
 import { Router, RouterLink } from '@angular/router';
 import { passwordMatchValidator } from 'src/app/shared/validators/password-match.validator';
-import { AuthService } from 'src/app/shared/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { User } from 'src/app/shared/models/user';
 
 @Component({

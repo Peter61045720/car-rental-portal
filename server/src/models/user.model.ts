@@ -5,6 +5,7 @@ export interface IUser extends Document {
   username: string;
   email: string;
   password: string;
+  isAdmin: boolean;
   verifyPassword(password: string): Promise<boolean>;
 }
 
@@ -22,6 +23,11 @@ const userSchema = new mongoose.Schema<IUser>(
     password: {
       type: String,
       required: true,
+    },
+    isAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
     },
   },
   {

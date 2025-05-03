@@ -11,7 +11,7 @@ import {
   IonButton,
 } from '@ionic/angular/standalone';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from 'src/app/shared/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-login',
