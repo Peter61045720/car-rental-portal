@@ -58,7 +58,7 @@ export class LoginPage {
     color: 'danger',
   };
 
-  loginFrom = new FormGroup({
+  loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
   });
@@ -72,15 +72,15 @@ export class LoginPage {
   }
 
   get email(): string {
-    return this.loginFrom.get('email')?.value ?? '';
+    return this.loginForm.get('email')?.value ?? '';
   }
 
   get password(): string {
-    return this.loginFrom.get('password')?.value ?? '';
+    return this.loginForm.get('password')?.value ?? '';
   }
 
   get isFormValid(): boolean {
-    return this.loginFrom.valid;
+    return this.loginForm.valid;
   }
 
   login(): void {
@@ -93,7 +93,7 @@ export class LoginPage {
           if (data.user?.isAdmin) {
             this.router.navigateByUrl('/admin/cars');
           } else {
-            this.router.navigateByUrl('/user/cars');
+            this.router.navigateByUrl('/app/cars');
           }
         });
       },

@@ -1,4 +1,4 @@
-import mongoose, { Model } from 'mongoose';
+import mongoose from 'mongoose';
 import { compare, hash } from 'bcrypt';
 
 export interface IUser extends Document {
@@ -50,4 +50,4 @@ userSchema.methods.verifyPassword = function (password: string): Promise<boolean
   return compare(password, this.password);
 };
 
-export const User: Model<IUser> = mongoose.model<IUser>('User', userSchema);
+export const User = mongoose.model<IUser>('User', userSchema);

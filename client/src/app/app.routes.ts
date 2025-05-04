@@ -27,7 +27,7 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'user',
+    path: 'app',
     canActivateChild: [authGuard],
     loadComponent: () =>
       import('./shared/components/layouts/user-layout/user-layout.component').then(
@@ -65,6 +65,10 @@ export const routes: Routes = [
       {
         path: 'cars',
         loadComponent: () => import('./pages/car/list/car-list.page').then(m => m.CarListPage),
+      },
+      {
+        path: 'add-car',
+        loadComponent: () => import('./pages/car/add/add-car.page').then(m => m.AddCarPage),
       },
       {
         path: 'folder/:id',

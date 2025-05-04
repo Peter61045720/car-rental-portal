@@ -123,7 +123,7 @@ export class RegistrationPage {
       next: () => {
         this.toastService.close();
         this.toastService.presentToast(this.successToastOptions);
-        this.router.navigateByUrl('/user/cars');
+        this.router.navigateByUrl('/app/cars');
       },
       error: () => {
         this.toastService.close();

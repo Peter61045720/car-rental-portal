@@ -13,4 +13,16 @@
       <ion-title size="large">Cars</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <div class="centered-content">
+    @if(cars$().length === 0) {
+    <p>No cars found.</p>
+    } @else {
+    <ul>
+      @for(car of cars$(); track car) {
+      <li>Brand: {{ car.brand }}, Model: {{ car.modelName }}</li>
+      }
+    </ul>
+    }
+  </div>
 </ion-content>

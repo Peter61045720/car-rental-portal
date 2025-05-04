@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -9,6 +9,8 @@ import {
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone';
+import { CarService } from 'src/app/shared/services/car.service';
+import { Car } from 'src/app/shared/models/car';
 
 @Component({
   selector: 'app-car-list',
@@ -27,7 +29,13 @@ import {
   ],
 })
 export class CarListPage implements OnInit {
-  constructor() {}
+  cars$ = signal<Car[]>([]);
 
-  ngOnInit() {}
+  constructor(private carService: CarService) {}
+
+  ngOnInit(): void {
+    this.carService.getAllCars().subscribe(cars => {
+      this.cars$.set(cars);
+    });
+  }
 }

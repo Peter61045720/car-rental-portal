@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import authRoutes from './routes/auth.routes';
+import carRoutes from './routes/car.routes';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
@@ -37,6 +38,7 @@ app.use(passport.session());
 app.use(cors({ origin: `http://localhost:${IONIC_PORT}`, credentials: true }));
 
 app.use('/api/auth', authRoutes);
+app.use('/api/cars', carRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);

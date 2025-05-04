@@ -87,7 +87,7 @@ export class UserLayoutComponent implements OnInit {
       {
         icon: 'car',
         title: 'Browse Cars',
-        url: '/user/cars',
+        url: '/app/cars',
       },
     ];
   }

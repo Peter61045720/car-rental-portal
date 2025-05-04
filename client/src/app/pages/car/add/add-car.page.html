@@ -1,0 +1,90 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Add New Car</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Add New Car</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="centered-content">
+    <ion-card class="flex-col-center">
+      <ion-card-header>
+        <ion-card-title>Car Details</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form class="flex-col-center" [formGroup]="carForm" (ngSubmit)="save()">
+          <ion-list lines="full">
+            <ion-item>
+              <ion-label slot="start">Image URL</ion-label>
+              <ion-input slot="end" placeholder="Image URL" formControlName="imageUrl"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label slot="start">Brand</ion-label>
+              <ion-input slot="end" placeholder="Brand name" formControlName="brand"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label slot="start">Model</ion-label>
+              <ion-input slot="end" placeholder="Model name" formControlName="modelName"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label slot="start">Daily Price</ion-label>
+              <ion-input slot="end" type="number" placeholder="$00.00" formControlName="dailyPrice"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>Available from</ion-label>
+              <ion-datetime-button datetime="date-start"></ion-datetime-button>
+
+              <ion-modal [keepContentsMounted]="true">
+                <ng-template>
+                  <ion-datetime
+                    #startDate
+                    id="date-start"
+                    name="availableFrom"
+                    presentation="date"
+                    locale="en-CA"
+                    [formatOptions]="formatOptions"
+                    [firstDayOfWeek]="1"
+                    [(ngModel)]="availableFrom"
+                    [ngModelOptions]="{ standalone: true }"
+                    (ionChange)="startDate.cancel(true)"
+                  ></ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label>Available to</ion-label>
+              <ion-datetime-button datetime="date-end"></ion-datetime-button>
+
+              <ion-modal [keepContentsMounted]="true">
+                <ng-template>
+                  <ion-datetime
+                    #endDate
+                    id="date-end"
+                    name="availableTo"
+                    presentation="date"
+                    locale="en-CA"
+                    [formatOptions]="formatOptions"
+                    [firstDayOfWeek]="1"
+                    [(ngModel)]="availableTo"
+                    [ngModelOptions]="{ standalone: true }"
+                    (ionChange)="endDate.cancel(true)"
+                  ></ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-item>
+          </ion-list>
+          <ion-button shape="round" type="submit" [disabled]="!this.isFormValid">Save</ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

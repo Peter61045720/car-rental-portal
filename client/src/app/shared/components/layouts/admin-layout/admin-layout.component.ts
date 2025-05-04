@@ -23,6 +23,8 @@ import {
   settingsSharp,
   logOutOutline,
   logOutSharp,
+  addOutline,
+  addSharp,
 } from 'ionicons/icons';
 import { NavItem } from 'src/app/shared/models/nav-item';
 import { User } from 'src/app/shared/models/user';
@@ -77,6 +79,8 @@ export class AdminLayoutComponent implements OnInit {
     addIcons({
       carOutline,
       carSharp,
+      addOutline,
+      addSharp,
       settingsOutline,
       settingsSharp,
       logOutOutline,
@@ -88,6 +92,11 @@ export class AdminLayoutComponent implements OnInit {
         icon: 'car',
         title: 'Browse Cars',
         url: '/admin/cars',
+      },
+      {
+        icon: 'add',
+        title: 'Add New Car',
+        url: '/admin/add-car',
       },
     ];
   }
@@ -101,7 +110,7 @@ export class AdminLayoutComponent implements OnInit {
   }
 
   viewProfile(): void {
-    this.router.navigateByUrl('/user/profile');
+    this.router.navigateByUrl('/app/profile');
   }
 
   logout(): void {
