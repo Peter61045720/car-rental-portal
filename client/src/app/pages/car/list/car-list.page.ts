@@ -8,6 +8,16 @@ import {
   IonMenuButton,
   IonTitle,
   IonToolbar,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardSubtitle,
+  IonCardContent,
+  IonButton,
+  IonSpinner,
 } from '@ionic/angular/standalone';
 import { CarService } from 'src/app/shared/services/car.service';
 import { Car } from 'src/app/shared/models/car';
@@ -18,6 +28,16 @@ import { Car } from 'src/app/shared/models/car';
   styleUrls: ['./car-list.page.scss'],
   standalone: true,
   imports: [
+    IonSpinner,
+    IonButton,
+    IonCardHeader,
+    IonCard,
+    IonCardTitle,
+    IonCardSubtitle,
+    IonCardContent,
+    IonCol,
+    IonRow,
+    IonGrid,
     IonContent,
     IonHeader,
     IonTitle,
@@ -30,11 +50,17 @@ import { Car } from 'src/app/shared/models/car';
 })
 export class CarListPage implements OnInit {
   cars$ = signal<Car[]>([]);
+  isLoading = true;
 
   constructor(private carService: CarService) {}
 
   ngOnInit(): void {
+    this.fetchCars();
+  }
+
+  fetchCars(): void {
     this.carService.getAllCars().subscribe(cars => {
+      this.isLoading = false;
       this.cars$.set(cars);
     });
   }
