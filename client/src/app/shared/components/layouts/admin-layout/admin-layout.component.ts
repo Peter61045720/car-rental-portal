@@ -25,6 +25,8 @@ import {
   logOutSharp,
   addOutline,
   addSharp,
+  cubeOutline,
+  cubeSharp,
 } from 'ionicons/icons';
 import { NavItem } from 'src/app/shared/models/nav-item';
 import { User } from 'src/app/shared/models/user';
@@ -81,6 +83,8 @@ export class AdminLayoutComponent implements OnInit {
       carSharp,
       addOutline,
       addSharp,
+      cubeOutline,
+      cubeSharp,
       settingsOutline,
       settingsSharp,
       logOutOutline,
@@ -97,6 +101,11 @@ export class AdminLayoutComponent implements OnInit {
         icon: 'add',
         title: 'Add New Car',
         url: '/admin/add-car',
+      },
+      {
+        icon: 'cube',
+        title: 'Add New Extra',
+        url: '/admin/add-extra',
       },
     ];
   }

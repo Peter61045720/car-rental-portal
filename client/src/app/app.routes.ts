@@ -71,6 +71,10 @@ export const routes: Routes = [
         path: 'add-car',
         loadComponent: () => import('./pages/car/add/add-car.page').then(m => m.AddCarPage),
       },
+      {
+        path: 'add-extra',
+        loadComponent: () => import('./pages/extra/add/add-extra.page').then(m => m.AddExtraPage),
+      },
     ],
   },
   {
