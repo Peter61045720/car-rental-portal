@@ -21,6 +21,7 @@ import {
 } from '@ionic/angular/standalone';
 import { CarService } from 'src/app/shared/services/car.service';
 import { Car } from 'src/app/shared/models/car';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-car-list',
@@ -52,7 +53,10 @@ export class CarListPage implements OnInit {
   cars$ = signal<Car[]>([]);
   isLoading = true;
 
-  constructor(private carService: CarService) {}
+  constructor(
+    private router: Router,
+    private carService: CarService
+  ) {}
 
   ngOnInit(): void {
     this.fetchCars();
@@ -63,5 +67,9 @@ export class CarListPage implements OnInit {
       this.isLoading = false;
       this.cars$.set(cars);
     });
+  }
+
+  viewCar(id?: string): void {
+    this.router.navigateByUrl(`/app/car/${id}`);
   }
 }

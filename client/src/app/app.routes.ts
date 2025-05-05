@@ -44,8 +44,9 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/car/list/car-list.page').then(m => m.CarListPage),
       },
       {
-        path: 'folder/:id',
-        loadComponent: () => import('./folder/folder.page').then(m => m.FolderPage),
+        path: 'car/:id',
+        loadComponent: () =>
+          import('./pages/car/details/car-details.page').then(m => m.CarDetailsPage),
       },
     ],
   },
@@ -69,10 +70,6 @@ export const routes: Routes = [
       {
         path: 'add-car',
         loadComponent: () => import('./pages/car/add/add-car.page').then(m => m.AddCarPage),
-      },
-      {
-        path: 'folder/:id',
-        loadComponent: () => import('./folder/folder.page').then(m => m.FolderPage),
       },
     ],
   },

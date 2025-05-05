@@ -29,7 +29,7 @@
 
             <ion-card-content><strong>Price: </strong>${{ car.dailyPrice }} / day</ion-card-content>
 
-            <ion-button color="secondary" fill="outline">Rent Now</ion-button>
+            <ion-button color="secondary" fill="outline" (click)="viewCar(car._id)">View Details</ion-button>
           </ion-card>
         </ion-col>
         }
