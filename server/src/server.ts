@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import authRoutes from './routes/auth.routes';
 import carRoutes from './routes/car.routes';
 import extraRoutes from './routes/extra.routes';
+import rentalRoutes from './routes/rental.routes';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
@@ -41,6 +42,7 @@ app.use(cors({ origin: `http://localhost:${IONIC_PORT}`, credentials: true }));
 app.use('/api/auth', authRoutes);
 app.use('/api/cars', carRoutes);
 app.use('/api/extras', extraRoutes);
+app.use('/api/rentals', rentalRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);

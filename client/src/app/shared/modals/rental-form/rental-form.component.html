@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Rental Details</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button color="primary" (click)="confirm()" [strong]="true">Confirm</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-item>
+      <ion-label>Start Date</ion-label>
+      <ion-datetime-button datetime="date-start"></ion-datetime-button>
+
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime
+            #startDateRef
+            id="date-start"
+            name="startDate"
+            presentation="date"
+            locale="en-CA"
+            [formatOptions]="formatOptions"
+            [firstDayOfWeek]="1"
+            [(ngModel)]="startDate"
+            [ngModelOptions]="{ standalone: true }"
+            (ionChange)="startDateRef.cancel(true)"
+          ></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-item>
+    <ion-item>
+      <ion-label>End Date</ion-label>
+      <ion-datetime-button datetime="date-end"></ion-datetime-button>
+
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime
+            #endDateRef
+            id="date-end"
+            name="endDate"
+            presentation="date"
+            locale="en-CA"
+            [formatOptions]="formatOptions"
+            [firstDayOfWeek]="1"
+            [(ngModel)]="endDate"
+            [ngModelOptions]="{ standalone: true }"
+            (ionChange)="endDateRef.cancel(true)"
+          ></ion-datetime>
+        </ng-template>
+      </ion-modal>
+    </ion-item>
+    <ion-item>
+      <ion-select label="Extras" placeholder="Select Extras" [multiple]="true" (ionChange)="handleChange($event)">
+        @for (extra of extras$(); track extra) {
+          <ion-select-option [value]="extra">{{ extra.name }}</ion-select-option>
+        }
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,5 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>Car Details</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -57,7 +60,7 @@
         </ion-list>
       </ion-card-content>
 
-      <ion-button>Rent Now</ion-button>
+      <ion-button (click)="openModal()">Rent Now</ion-button>
       <ion-button class="back-button" fill="clear" (click)="goBack()">Go back</ion-button>
     </ion-card>
   </div>
