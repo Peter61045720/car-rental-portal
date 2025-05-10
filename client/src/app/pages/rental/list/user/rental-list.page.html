@@ -14,7 +14,7 @@
     </ion-toolbar>
   </ion-header>
 
-  @if (!isLoading) {
+  @if (!isLoading) { @if (rentals().length !== 0) {
   <ion-list lines="full" [inset]="true">
     <ion-list-header>Rentals</ion-list-header>
     @for (rental of rentals(); track rental) {
@@ -31,6 +31,10 @@
     }
   </ion-list>
   } @else {
+  <div class="centered-content">
+    <p>No rentals available</p>
+  </div>
+  } } @else {
   <div class="centered-content flex-col-center">
     <ion-spinner name="lines"></ion-spinner>
     <span>Loading rentals</span>

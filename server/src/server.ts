@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import authRoutes from './routes/auth.routes';
+import userRoutes from './routes/user.routes';
 import carRoutes from './routes/car.routes';
 import extraRoutes from './routes/extra.routes';
 import rentalRoutes from './routes/rental.routes';
@@ -40,6 +41,7 @@ app.use(passport.session());
 app.use(cors({ origin: `http://localhost:${IONIC_PORT}`, credentials: true }));
 
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/cars', carRoutes);
 app.use('/api/extras', extraRoutes);
 app.use('/api/rentals', rentalRoutes);

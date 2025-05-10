@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Rentals</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Rentals</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  @if (!isLoading) { @if (rentals().length !== 0) {
+  <ion-list lines="full" [inset]="true">
+    <ion-list-header>Rentals</ion-list-header>
+    @for (rental of rentals(); track rental) {
+    <ion-item>
+      <ion-label slot="start">
+        <strong>{{ getUserById(rental.userId)?.email }}</strong>
+        <br />
+        <ion-note>{{ getCarById(rental.carId)?.brand }} {{ getCarById(rental.carId)?.modelName }}</ion-note>
+      </ion-label>
+      <ion-label slot="end">
+        <ion-note>{{ rental.startDate | date: 'y-MM-dd' }}</ion-note>
+        <br />
+        <ion-note>{{ rental.endDate | date: 'y-MM-dd' }}</ion-note>
+      </ion-label>
+      <ion-button slot="end" color="danger" size="large" (click)="delete(rental._id)">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+    <!-- TODO: use sliding items instead? -->
+    <!-- <ion-item-sliding>
+      <ion-item>
+        <ion-label slot="start">
+          <strong>{{ getUserById(rental.userId)?.email }}</strong>
+          <br />
+          <ion-note>{{ getCarById(rental.carId)?.brand }} {{ getCarById(rental.carId)?.modelName }}</ion-note>
+        </ion-label>
+        <ion-label slot="end">
+          <ion-note>{{ rental.startDate | date: 'y-MM-dd' }}</ion-note>
+          <br />
+          <ion-note>{{ rental.endDate | date: 'y-MM-dd' }}</ion-note>
+        </ion-label>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="danger" (click)="delete(rental._id)">
+          <ion-icon slot="start" name="trash-outline"></ion-icon>
+          Delete
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding> -->
+    }
+  </ion-list>
+  } @else {
+  <div class="centered-content">
+    <p>No rentals available</p>
+  </div>
+  } } @else {
+  <div class="centered-content flex-col-center">
+    <ion-spinner name="lines"></ion-spinner>
+    <span>Loading rentals</span>
+  </div>
+  }
+</ion-content>

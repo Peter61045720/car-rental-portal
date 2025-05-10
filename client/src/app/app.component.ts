@@ -23,6 +23,7 @@ import {
   logOutSharp,
   settingsOutline,
   settingsSharp,
+  trashOutline,
 } from 'ionicons/icons';
 
 @Component({
@@ -56,6 +57,7 @@ export class AppComponent {
       checkmarkCircleSharp,
       closeCircleOutline,
       closeCircleSharp,
+      trashOutline,
     });
   }
 }

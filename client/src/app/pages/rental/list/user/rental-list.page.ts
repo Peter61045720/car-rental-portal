@@ -53,11 +53,11 @@ export class RentalListPage implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private CarService: CarService,
+    private carService: CarService,
     private rentalService: RentalService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.fetchRentals();
   }
 
@@ -65,9 +65,14 @@ export class RentalListPage implements OnInit {
     const userId = (await firstValueFrom(this.authService.checkAuth())).user?._id;
 
     if (userId) {
-      this.rentalService.getRentalsByUserId(userId).subscribe(rentals => {
-        this.rentals.set(rentals);
-        this.fetchCars();
+      this.rentalService.getRentalsByUserId(userId).subscribe({
+        next: rentals => {
+          this.rentals.set(rentals);
+          this.fetchCars();
+        },
+        error: () => {
+          this.isLoading = false;
+        },
       });
     }
   }
@@ -76,7 +81,7 @@ export class RentalListPage implements OnInit {
     this.rentals()
       .map(rental => rental.carId)
       .forEach(carId => {
-        this.CarService.getCarById(carId).subscribe({
+        this.carService.getCarById(carId).subscribe({
           next: car => {
             this.cars.update(cars => {
               return [...cars, car];

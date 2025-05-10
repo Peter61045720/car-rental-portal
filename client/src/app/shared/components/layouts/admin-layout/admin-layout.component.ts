@@ -72,6 +72,11 @@ export class AdminLayoutComponent implements OnInit {
         url: '/admin/cars',
       },
       {
+        icon: 'calendar',
+        title: 'Browse Rentals',
+        url: '/admin/rentals',
+      },
+      {
         icon: 'add',
         title: 'Add New Car',
         url: '/admin/add-car',

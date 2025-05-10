@@ -85,6 +85,11 @@ export const routes: Routes = [
         path: 'add-extra',
         loadComponent: () => import('./pages/extra/add/add-extra.page').then(m => m.AddExtraPage),
       },
+      {
+        path: 'rentals',
+        loadComponent: () =>
+          import('./pages/rental/list/admin/rental-list.page').then(m => m.RentalListPage),
+      },
     ],
   },
   {
