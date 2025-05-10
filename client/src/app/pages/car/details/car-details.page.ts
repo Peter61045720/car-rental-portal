@@ -30,8 +30,6 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { RentalService } from 'src/app/shared/services/rental.service';
 import { firstValueFrom } from 'rxjs';
 import { ToastService } from 'src/app/shared/services/toast.service';
-import { addIcons } from 'ionicons';
-import { alertCircleOutline, checkmarkCircleOutline, hourglassOutline } from 'ionicons/icons';
 import { Extra } from 'src/app/shared/models/extra';
 import { differenceInDays } from 'date-fns';
 
@@ -93,7 +91,7 @@ export class CarDetailsPage implements OnInit {
     },
   };
 
-  isLoading = false;
+  isLoading = true;
   carId = '';
   car$ = signal<Car>({} as Car);
 
@@ -105,9 +103,7 @@ export class CarDetailsPage implements OnInit {
     private carService: CarService,
     private rentalService: RentalService,
     private modalCtrl: ModalController
-  ) {
-    addIcons({ hourglassOutline, checkmarkCircleOutline, alertCircleOutline });
-  }
+  ) {}
 
   ngOnInit(): void {
     this.carId = this.activatedRoute.snapshot.paramMap.get('id') as string;

@@ -11,6 +11,21 @@ export const getAllRentals = async (req: Request, res: Response) => {
   }
 };
 
+export const getRentalsByUserId = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.userId;
+    const rentals = await Rental.find({ userId });
+
+    if (rentals.length === 0) {
+      res.status(404).send(`No rentals found for user ID ${userId}`);
+    }
+
+    res.status(200).send(rentals);
+  } catch (error) {
+    res.status(500).send(error instanceof Error ? error.message : 'Unknown error');
+  }
+};
+
 export const getRentalById = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;

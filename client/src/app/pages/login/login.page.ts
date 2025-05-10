@@ -13,8 +13,6 @@ import {
 } from '@ionic/angular/standalone';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { addIcons } from 'ionicons';
-import { alertCircleOutline, checkmarkCircleOutline, hourglassOutline } from 'ionicons/icons';
 import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
@@ -67,9 +65,7 @@ export class LoginPage {
     private router: Router,
     private toastService: ToastService,
     private authService: AuthService
-  ) {
-    addIcons({ hourglassOutline, checkmarkCircleOutline, alertCircleOutline });
-  }
+  ) {}
 
   get email(): string {
     return this.loginForm.get('email')?.value ?? '';

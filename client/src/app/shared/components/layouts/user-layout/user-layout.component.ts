@@ -15,15 +15,6 @@ import {
   IonRouterLink,
   ToastOptions,
 } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import {
-  carOutline,
-  carSharp,
-  logOutOutline,
-  logOutSharp,
-  settingsOutline,
-  settingsSharp,
-} from 'ionicons/icons';
 import { NavItem } from 'src/app/shared/models/nav-item';
 import { User } from 'src/app/shared/models/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -74,20 +65,16 @@ export class UserLayoutComponent implements OnInit {
     private toastService: ToastService,
     private authService: AuthService
   ) {
-    addIcons({
-      carOutline,
-      carSharp,
-      settingsOutline,
-      settingsSharp,
-      logOutOutline,
-      logOutSharp,
-    });
-
     this.appPages = [
       {
         icon: 'car',
         title: 'Browse Cars',
         url: '/app/cars',
+      },
+      {
+        icon: 'calendar',
+        title: 'My Rentals',
+        url: '/app/rentals',
       },
     ];
   }

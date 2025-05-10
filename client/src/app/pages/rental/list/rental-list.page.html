@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>My Rentals</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">My Rentals</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  @if (!isLoading) {
+  <ion-list lines="full" [inset]="true">
+    <ion-list-header>Rentals</ion-list-header>
+    @for (rental of rentals(); track rental) {
+    <ion-item detail="true" [button]="true" (click)="viewRental(rental._id)">
+      <ion-label slot="start">
+        <strong>{{ getCarById(rental.carId)?.brand }} {{ getCarById(rental.carId)?.modelName }}</strong>
+      </ion-label>
+      <ion-label slot="end">
+        <ion-note>{{ rental.startDate | date: 'y-MM-dd' }}</ion-note>
+        <br />
+        <ion-note>{{ rental.endDate | date: 'y-MM-dd' }}</ion-note>
+      </ion-label>
+    </ion-item>
+    }
+  </ion-list>
+  } @else {
+  <div class="centered-content flex-col-center">
+    <ion-spinner name="lines"></ion-spinner>
+    <span>Loading rentals</span>
+  </div>
+  }
+</ion-content>

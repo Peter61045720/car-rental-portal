@@ -19,8 +19,6 @@ import {
   IonButtons,
   IonMenuButton,
 } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { alertCircleOutline, checkmarkCircleOutline, hourglassOutline } from 'ionicons/icons';
 import { Extra } from 'src/app/shared/models/extra';
 import { ExtraService } from 'src/app/shared/services/extra.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
@@ -82,9 +80,7 @@ export class AddExtraPage {
     private router: Router,
     private toastService: ToastService,
     private extraService: ExtraService
-  ) {
-    addIcons({ hourglassOutline, checkmarkCircleOutline, alertCircleOutline });
-  }
+  ) {}
 
   get name(): string {
     return this.extraForm.get('name')?.value ?? '';

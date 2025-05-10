@@ -15,6 +15,10 @@ export class RentalService {
     return this.httpClient.get<Rental[]>(this.url);
   }
 
+  getRentalsByUserId(userId: string): Observable<Rental[]> {
+    return this.httpClient.get<Rental[]>(`${this.url}/user/${userId}`);
+  }
+
   getRentalById(id: string): Observable<Rental> {
     return this.httpClient.get<Rental>(`${this.url}/${id}`);
   }

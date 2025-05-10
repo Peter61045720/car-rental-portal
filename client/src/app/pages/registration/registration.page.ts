@@ -22,8 +22,6 @@ import { Router, RouterLink } from '@angular/router';
 import { passwordMatchValidator } from 'src/app/shared/validators/password-match.validator';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { User } from 'src/app/shared/models/user';
-import { addIcons } from 'ionicons';
-import { alertCircleOutline, checkmarkCircleOutline, hourglassOutline } from 'ionicons/icons';
 import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
@@ -82,9 +80,7 @@ export class RegistrationPage {
     private router: Router,
     private toastService: ToastService,
     private authService: AuthService
-  ) {
-    addIcons({ hourglassOutline, checkmarkCircleOutline, alertCircleOutline });
-  }
+  ) {}
 
   get confirmPasswordControl(): AbstractControl<string | null, string | null> | null {
     return this.registrationFrom.get('confirmPassword');

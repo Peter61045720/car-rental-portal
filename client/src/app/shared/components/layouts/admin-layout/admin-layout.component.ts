@@ -15,19 +15,6 @@ import {
   IonRouterLink,
   ToastOptions,
 } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import {
-  carOutline,
-  carSharp,
-  settingsOutline,
-  settingsSharp,
-  logOutOutline,
-  logOutSharp,
-  addOutline,
-  addSharp,
-  cubeOutline,
-  cubeSharp,
-} from 'ionicons/icons';
 import { NavItem } from 'src/app/shared/models/nav-item';
 import { User } from 'src/app/shared/models/user';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -78,19 +65,6 @@ export class AdminLayoutComponent implements OnInit {
     private toastService: ToastService,
     private authService: AuthService
   ) {
-    addIcons({
-      carOutline,
-      carSharp,
-      addOutline,
-      addSharp,
-      cubeOutline,
-      cubeSharp,
-      settingsOutline,
-      settingsSharp,
-      logOutOutline,
-      logOutSharp,
-    });
-
     this.appPages = [
       {
         icon: 'car',

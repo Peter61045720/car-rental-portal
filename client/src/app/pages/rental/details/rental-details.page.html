@@ -1,0 +1,133 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Rental Details</ion-title>
+    <ion-buttons slot="primary">
+      @if (!isEditing) {
+      <ion-button fill="outline" (click)="toggleEdit()">
+        Edit
+        <ion-icon slot="end" ios="create-outline" md="create-sharp"></ion-icon>
+      </ion-button>
+      } @else {
+      <ion-button class="save-button" color="success" fill="outline" (click)="update()">
+        Save
+        <ion-icon slot="end" ios="checkmark-circle-outline" md="checkmark-circle-sharp"></ion-icon>
+      </ion-button>
+      <ion-button color="danger" fill="outline" (click)="toggleEdit()">
+        Cancel
+        <ion-icon slot="end" ios="close-circle-outline" md="close-circle-sharp"></ion-icon>
+      </ion-button>
+      }
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Rental Details</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  @if (!isLoading) {
+  <div class="centered-content flex-col-center">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Rental</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-list lines="full">
+          <ion-item>
+            <ion-label slot="start">Car brand & model</ion-label>
+            <ion-label slot="end">{{ car().brand }} {{ car().modelName }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label slot="start">Start Date</ion-label>
+            <ion-datetime-button slot="end" datetime="date-start"></ion-datetime-button>
+
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime
+                  #startDateRef
+                  id="date-start"
+                  name="startDate"
+                  presentation="date"
+                  locale="en-CA"
+                  [formatOptions]="formatOptions"
+                  [firstDayOfWeek]="1"
+                  [(ngModel)]="rental().startDate"
+                  [ngModelOptions]="{ standalone: true }"
+                  (ionChange)="startDateRef.cancel(true)"
+                >
+                  <ion-buttons slot="buttons">
+                    <ion-button color="primary" (click)="startDateRef.cancel(true)">Close</ion-button>
+                  </ion-buttons>
+                </ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-item>
+          <ion-item>
+            <ion-label slot="start">End Date</ion-label>
+            <ion-datetime-button slot="end" datetime="date-end"></ion-datetime-button>
+
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime
+                  #endDateRef
+                  id="date-end"
+                  name="endDate"
+                  presentation="date"
+                  locale="en-CA"
+                  [formatOptions]="formatOptions"
+                  [firstDayOfWeek]="1"
+                  [(ngModel)]="rental().endDate"
+                  [ngModelOptions]="{ standalone: true }"
+                  (ionChange)="endDateRef.cancel(true)"
+                >
+                  <ion-buttons slot="buttons">
+                    <ion-button color="primary" (click)="endDateRef.cancel(true)">Close</ion-button>
+                  </ion-buttons>
+                </ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-item>
+          <ion-item>
+            <ion-label slot="start">Car daily price</ion-label>
+            <ion-label slot="end">${{ car().dailyPrice }} / day</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label slot="start">Total Price</ion-label>
+            <ion-label slot="end">${{ rental().totalPrice }}</ion-label>
+          </ion-item>
+        </ion-list>
+
+        <ion-list lines="full">
+          <ion-list-header>Extras</ion-list-header>
+          @if (extras().length !== 0) { @for (extra of extras(); track extra) {
+          <ion-item>
+            <ion-label slot="start">{{ extra.name }}</ion-label>
+            <ion-label slot="end">${{ extra.dailyPrice }} / day</ion-label>
+          </ion-item>
+          } } @else {
+          <ion-item lines="none">
+            <ion-note>No extras selected for this rental</ion-note>
+          </ion-item>
+          }
+        </ion-list>
+      </ion-card-content>
+
+      <ion-button id="present-alert" color="danger">Cancel Rental</ion-button>
+      <ion-alert trigger="present-alert" header="Are you sure you want to cancel this rental?" [buttons]="alertButtons"></ion-alert>
+      <ion-button class="back-button" fill="clear" (click)="goBack()">Go Back</ion-button>
+    </ion-card>
+  </div>
+  } @else {
+  <div class="centered-content flex-col-center">
+    <ion-spinner name="lines"></ion-spinner>
+    <span>Loading rental details</span>
+  </div>
+  }
+</ion-content>

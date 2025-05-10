@@ -48,6 +48,16 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/car/details/car-details.page').then(m => m.CarDetailsPage),
       },
+      {
+        path: 'rentals',
+        loadComponent: () =>
+          import('./pages/rental/list/rental-list.page').then(m => m.RentalListPage),
+      },
+      {
+        path: 'rental/:id',
+        loadComponent: () =>
+          import('./pages/rental/details/rental-details.page').then(m => m.RentalDetailsPage),
+      },
     ],
   },
   {

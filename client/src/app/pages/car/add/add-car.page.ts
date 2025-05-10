@@ -28,8 +28,6 @@ import {
   IonButton,
   ToastOptions,
 } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { alertCircleOutline, checkmarkCircleOutline, hourglassOutline } from 'ionicons/icons';
 import { Car } from 'src/app/shared/models/car';
 import { CarService } from 'src/app/shared/services/car.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
@@ -107,9 +105,7 @@ export class AddCarPage {
     private router: Router,
     private toastService: ToastService,
     private carService: CarService
-  ) {
-    addIcons({ hourglassOutline, checkmarkCircleOutline, alertCircleOutline });
-  }
+  ) {}
 
   get imageUrl(): string {
     return this.carForm.get('imageUrl')?.value ?? '';
