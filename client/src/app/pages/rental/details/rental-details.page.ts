@@ -113,6 +113,8 @@ export class RentalDetailsPage implements OnInit {
   isLoading = true;
   isEditing = false;
   rentalId = '';
+  startDate = new Date().toISOString();
+  endDate = new Date().toISOString();
   rental = signal<Rental>({} as Rental);
   car = signal<Car>({} as Car);
   extras = signal<Extra[]>([]);
@@ -130,6 +132,8 @@ export class RentalDetailsPage implements OnInit {
     this.rentalId = this.activatedRoute.snapshot.paramMap.get('id') as string;
     this.rentalService.getRentalById(this.rentalId).subscribe(rental => {
       this.rental.set(rental);
+      this.startDate = new Date(rental.startDate).toISOString();
+      this.endDate = new Date(rental.endDate).toISOString();
       this.fetchData();
     });
   }
@@ -159,6 +163,8 @@ export class RentalDetailsPage implements OnInit {
 
   toggleEdit(): void {
     this.isEditing = !this.isEditing;
+    this.startDate = new Date(this.rental().startDate).toISOString();
+    this.endDate = new Date(this.rental().endDate).toISOString();
   }
 
   goBack(): void {
@@ -167,6 +173,20 @@ export class RentalDetailsPage implements OnInit {
 
   update(): void {
     this.toastService.presentClosableToast(this.loadingToastOptions);
+
+    this.rental().startDate = new Date(this.startDate);
+    this.rental().endDate = new Date(this.endDate);
+
+    this.rentalService.updateRental(this.rentalId, this.rental()).subscribe({
+      next: () => {
+        this.toastService.close();
+        this.toastService.presentToast(this.successToastOptions);
+      },
+      error: () => {
+        this.toastService.close();
+        this.toastService.presentToast(this.errorToastOptions);
+      },
+    });
   }
 
   delete(): void {

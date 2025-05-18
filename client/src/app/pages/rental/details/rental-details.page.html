@@ -46,7 +46,7 @@
           </ion-item>
           <ion-item>
             <ion-label slot="start">Start Date</ion-label>
-            <ion-datetime-button slot="end" datetime="date-start"></ion-datetime-button>
+            <ion-datetime-button slot="end" datetime="date-start" [disabled]="!isEditing"></ion-datetime-button>
 
             <ion-modal [keepContentsMounted]="true">
               <ng-template>
@@ -58,12 +58,12 @@
                   locale="en-CA"
                   [formatOptions]="formatOptions"
                   [firstDayOfWeek]="1"
-                  [(ngModel)]="rental().startDate"
+                  [(ngModel)]="startDate"
                   [ngModelOptions]="{ standalone: true }"
-                  (ionChange)="startDateRef.cancel(true)"
                 >
                   <ion-buttons slot="buttons">
                     <ion-button color="primary" (click)="startDateRef.cancel(true)">Close</ion-button>
+                    <ion-button color="primary" (click)="startDateRef.confirm(true)">Ok</ion-button>
                   </ion-buttons>
                 </ion-datetime>
               </ng-template>
@@ -71,7 +71,7 @@
           </ion-item>
           <ion-item>
             <ion-label slot="start">End Date</ion-label>
-            <ion-datetime-button slot="end" datetime="date-end"></ion-datetime-button>
+            <ion-datetime-button slot="end" datetime="date-end" [disabled]="!isEditing"></ion-datetime-button>
 
             <ion-modal [keepContentsMounted]="true">
               <ng-template>
@@ -83,12 +83,12 @@
                   locale="en-CA"
                   [formatOptions]="formatOptions"
                   [firstDayOfWeek]="1"
-                  [(ngModel)]="rental().endDate"
+                  [(ngModel)]="endDate"
                   [ngModelOptions]="{ standalone: true }"
-                  (ionChange)="endDateRef.cancel(true)"
                 >
                   <ion-buttons slot="buttons">
                     <ion-button color="primary" (click)="endDateRef.cancel(true)">Close</ion-button>
+                    <ion-button color="primary" (click)="endDateRef.confirm(true)">Ok</ion-button>
                   </ion-buttons>
                 </ion-datetime>
               </ng-template>
