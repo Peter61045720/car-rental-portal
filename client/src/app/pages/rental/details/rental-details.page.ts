@@ -34,6 +34,7 @@ import { RentalService } from 'src/app/shared/services/rental.service';
 import { Car } from 'src/app/shared/models/car';
 import { Extra } from 'src/app/shared/models/extra';
 import { ExtraService } from 'src/app/shared/services/extra.service';
+import { isBefore, startOfDay } from 'date-fns';
 
 @Component({
   selector: 'app-rental-details',
@@ -112,6 +113,7 @@ export class RentalDetailsPage implements OnInit {
 
   isLoading = true;
   isEditing = false;
+  isExpired = true;
   rentalId = '';
   startDate = new Date().toISOString();
   endDate = new Date().toISOString();
@@ -130,10 +132,23 @@ export class RentalDetailsPage implements OnInit {
 
   ngOnInit(): void {
     this.rentalId = this.activatedRoute.snapshot.paramMap.get('id') as string;
+    this.fetchRental();
+  }
+
+  fetchRental(): void {
+    this.rental.set({} as Rental);
+    this.car.set({} as Car);
+    this.extras.set([]);
+
     this.rentalService.getRentalById(this.rentalId).subscribe(rental => {
       this.rental.set(rental);
       this.startDate = new Date(rental.startDate).toISOString();
       this.endDate = new Date(rental.endDate).toISOString();
+
+      const today = startOfDay(new Date());
+      const targetDate = startOfDay(new Date(rental.startDate));
+      this.isExpired = isBefore(targetDate, today);
+
       this.fetchData();
     });
   }
@@ -181,6 +196,8 @@ export class RentalDetailsPage implements OnInit {
       next: () => {
         this.toastService.close();
         this.toastService.presentToast(this.successToastOptions);
+        this.isLoading = true;
+        this.fetchRental();
       },
       error: () => {
         this.toastService.close();

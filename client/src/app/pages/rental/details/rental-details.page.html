@@ -119,7 +119,7 @@
         </ion-list>
       </ion-card-content>
 
-      <ion-button id="present-alert" color="danger">Cancel Rental</ion-button>
+      <ion-button id="present-alert" color="danger" [disabled]="isExpired">Cancel Rental</ion-button>
       <ion-alert trigger="present-alert" header="Are you sure you want to cancel this rental?" [buttons]="alertButtons"></ion-alert>
       <ion-button class="back-button" fill="clear" (click)="goBack()">Go Back</ion-button>
     </ion-card>
