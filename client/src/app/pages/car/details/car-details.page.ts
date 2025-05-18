@@ -31,7 +31,7 @@ import { RentalService } from 'src/app/shared/services/rental.service';
 import { firstValueFrom } from 'rxjs';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { Extra } from 'src/app/shared/models/extra';
-import { differenceInDays } from 'date-fns';
+import { calculateTotalPrice } from 'src/app/shared/functions/calculate-total-price.function';
 
 @Component({
   selector: 'app-car-details',
@@ -157,10 +157,13 @@ export class CarDetailsPage implements OnInit {
     userId: string,
     data: { startDate: Date; endDate: Date; extras: Extra[] }
   ): Rental {
-    const rentalDays = differenceInDays(new Date(data.endDate), new Date(data.startDate)) + 1;
     const extraIds = data.extras.map(extra => extra._id).filter(id => id !== undefined);
-    const extrasTotal = data.extras.reduce((acc, extra) => acc + extra.dailyPrice * rentalDays, 0);
-    const totalPrice = this.car$().dailyPrice * rentalDays + extrasTotal;
+    const totalPrice = calculateTotalPrice(
+      this.car$().dailyPrice,
+      data.startDate,
+      data.endDate,
+      data.extras
+    );
 
     return {
       userId: userId,

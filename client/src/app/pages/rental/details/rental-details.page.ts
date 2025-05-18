@@ -35,6 +35,7 @@ import { Car } from 'src/app/shared/models/car';
 import { Extra } from 'src/app/shared/models/extra';
 import { ExtraService } from 'src/app/shared/services/extra.service';
 import { isBefore, startOfDay } from 'date-fns';
+import { calculateTotalPrice } from 'src/app/shared/functions/calculate-total-price.function';
 
 @Component({
   selector: 'app-rental-details',
@@ -191,6 +192,12 @@ export class RentalDetailsPage implements OnInit {
 
     this.rental().startDate = new Date(this.startDate);
     this.rental().endDate = new Date(this.endDate);
+    this.rental().totalPrice = calculateTotalPrice(
+      this.car().dailyPrice,
+      this.rental().startDate,
+      this.rental().endDate,
+      this.extras()
+    );
 
     this.rentalService.updateRental(this.rentalId, this.rental()).subscribe({
       next: () => {
