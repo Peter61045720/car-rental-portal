@@ -18,7 +18,7 @@
   <div class="ion-padding">
     <ion-grid>
       <ion-row>
-        @for (car of cars$(); track car) {
+        @for (car of cars(); track car) {
         <ion-col size-lg="3" size-md="4" size-sm="6" size-xs="12">
           <ion-card>
             <img alt="Picture of a car" [src]="'https://ionicframework.com/docs/img/demos/card-media.png'" />
@@ -30,6 +30,9 @@
             <ion-card-content><strong>Price: </strong>${{ car.dailyPrice }} / day</ion-card-content>
 
             <ion-button color="secondary" fill="outline" (click)="viewCar(car._id)">View Details</ion-button>
+            @if (this.isAdmin) {
+            <ion-button color="danger" (click)="delete(car._id)">Delete</ion-button>
+            }
           </ion-card>
         </ion-col>
         }
